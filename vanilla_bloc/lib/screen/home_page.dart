@@ -25,6 +25,7 @@ class _HomePageState extends State<HomePage> {
           stream: _bloc.counterStream,
           initialData: 0,
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            // if (snapshot.hasData) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -37,6 +38,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             );
+            // }
+            // else if (snapshot.connectionState == ConnectionState.active){
+            //   // Show progress dialog
+            // }
+            // else if (snapshot.hasError) {
+            //   print(snapshot.error);
+            // }
           },
         ),
       ),
