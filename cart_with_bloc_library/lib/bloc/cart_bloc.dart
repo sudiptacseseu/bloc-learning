@@ -17,9 +17,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Stream<CartState> mapEventToState(
     CartEvent event,
   ) async* {
-    if (event is AddToCart) {
-      yield CartLoading();
-      await Future.delayed(Duration(seconds: 1));
+    // Add new item or increase the quantity if already exists
+    if (event is AddItemOrIncreaseQuantity) {
+      // yield CartLoading();
+      // await Future.delayed(Duration(seconds: 1));
       List<CartItem> tempList = List<CartItem>.from(_cartItem);
       bool exists = false;
       int index = 0;
@@ -45,9 +46,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
       _cartItem = List.unmodifiable(tempList);
       yield CartOperationSuccess(_cartItem);
-    } else if (event is RemoveFromCart) {
-      yield CartLoading();
-      await Future.delayed(Duration(seconds: 1));
+    }
+    // Remove item if the quantity is 1 or decrease the quantity
+    else if (event is RemoveItemOrDecreaseQuantity) {
+      // yield CartLoading();
+      // await Future.delayed(Duration(seconds: 1));
       List<CartItem> tempList = List<CartItem>.from(_cartItem);
 
       int index = 0;
@@ -65,6 +68,28 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           quantity: tempList[index].quantity - 1,
         );
       }
+      _cartItem = List.unmodifiable(tempList);
+      yield CartOperationSuccess(_cartItem);
+    }
+    // Delete item from cart
+    else if (event is DeleteItem) {
+      List<CartItem> tempList = List<CartItem>.from(_cartItem);
+
+      int index = 0;
+      for (var i = 0; i < _cartItem.length; i++) {
+        if (event.product.name == _cartItem[i].product.name) {
+          index = i;
+          break;
+        }
+      }
+      tempList.removeAt(index);
+      _cartItem = List.unmodifiable(tempList);
+      yield CartOperationSuccess(_cartItem);
+    }
+    // Delete the whole cart
+    else if (event is DeleteCart) {
+      List<CartItem> tempList = List<CartItem>.from(_cartItem);
+      tempList.clear();
       _cartItem = List.unmodifiable(tempList);
       yield CartOperationSuccess(_cartItem);
     }

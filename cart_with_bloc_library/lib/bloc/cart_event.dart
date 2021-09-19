@@ -3,14 +3,22 @@ part of 'cart_bloc.dart';
 @immutable
 abstract class CartEvent {}
 
-class AddToCart extends CartEvent{
+class AddItemOrIncreaseQuantity extends CartEvent {
   final Product product;
 
-  AddToCart(this.product);
+  AddItemOrIncreaseQuantity(this.product);
 }
 
-class RemoveFromCart extends CartEvent{
+class RemoveItemOrDecreaseQuantity extends CartEvent {
   final Product product;
 
-  RemoveFromCart(this.product);
+  RemoveItemOrDecreaseQuantity(this.product);
 }
+
+class DeleteItem extends CartEvent {
+  final Product product;
+
+  DeleteItem(this.product);
+}
+
+class DeleteCart extends CartEvent {}

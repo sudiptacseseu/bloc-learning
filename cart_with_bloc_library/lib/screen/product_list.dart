@@ -91,7 +91,7 @@ class _ProductListState extends State<ProductList> {
                   GestureDetector(
                     onTap: () {
                       BlocProvider.of<CartBloc>(context)
-                          .add(AddToCart(product));
+                          .add(AddItemOrIncreaseQuantity(product));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class _ProductListState extends State<ProductList> {
                   GestureDetector(
                     onTap: () {
                       BlocProvider.of<CartBloc>(context)
-                          .add(RemoveFromCart(product));
+                          .add(RemoveItemOrDecreaseQuantity(product));
                     },
                     child: Container(
                       decoration: BoxDecoration(
