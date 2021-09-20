@@ -85,47 +85,24 @@ class _ProductListState extends State<ProductList> {
               ),
               title: Text(product.name),
               subtitle: Text("\$${product.price}"),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<CartBloc>(context)
-                          .add(AddItemOrIncreaseQuantity(product));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        color: Colors.black12,
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        size: 24,
-                        color: Colors.white,
-                      ),
+              trailing: GestureDetector(
+                onTap: () {
+                  BlocProvider.of<CartBloc>(context)
+                      .add(AddItemOrIncreaseQuantity(product));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.black26,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Add to cart",
+                      style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
                   ),
-                  SizedBox(
-                    width: 12.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<CartBloc>(context)
-                          .add(RemoveItemOrDecreaseQuantity(product));
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        color: Colors.black12,
-                      ),
-                      child: Icon(
-                        Icons.remove,
-                        size: 24,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             );
           }),

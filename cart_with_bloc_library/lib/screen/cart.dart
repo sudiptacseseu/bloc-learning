@@ -2,7 +2,6 @@ import 'package:cart_with_bloc_library/bloc/cart_bloc.dart';
 import 'package:cart_with_bloc_library/model/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class Cart extends StatelessWidget {
   @override
@@ -78,14 +77,6 @@ class Cart extends StatelessWidget {
                                       onTap: () {
                                         BlocProvider.of<CartBloc>(context)
                                             .add(DeleteItem(cartItem.product));
-                                        Fluttertoast.showToast(
-                                            msg: "Item removed from the cart!",
-                                            toastLength: Toast.LENGTH_SHORT,
-                                            gravity: ToastGravity.BOTTOM,
-                                            backgroundColor:
-                                                Colors.yellow.shade800,
-                                            textColor: Colors.white,
-                                            fontSize: 15.0);
                                       },
                                       child: Icon(
                                         Icons.delete,

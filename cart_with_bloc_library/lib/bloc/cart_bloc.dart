@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cart_with_bloc_library/model/cart_item.dart';
 import 'package:cart_with_bloc_library/model/product.dart';
+import 'package:cart_with_bloc_library/util/custom_toast.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'cart_event.dart';
@@ -36,6 +38,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           product: event.product,
           quantity: tempList[index].quantity + 1,
         );
+        showToast(
+            "Product has been added to the cart!", Colors.yellow.shade800);
       } else {
         tempList.add(
           CartItem(
@@ -43,6 +47,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             product: event.product,
           ),
         );
+        showToast(
+            "Product has been added to the cart!", Colors.yellow.shade800);
       }
       _cartItem = List.unmodifiable(tempList);
       yield CartOperationSuccess(_cartItem);
@@ -83,6 +89,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         }
       }
       tempList.removeAt(index);
+      showToast("Item removed from the cart!", Colors.yellow.shade800);
       _cartItem = List.unmodifiable(tempList);
       yield CartOperationSuccess(_cartItem);
     }
